@@ -1,14 +1,23 @@
-$(()=> {
+const apiKey = 'ecd78d58c54d449895576d2cd9a897d9';
+
+$(function() {
   $('form').on("submit", function(e){
     e.preventDefault();
     loading();
     
-    async function getFood () {
-      let data = await fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${$('.search-bar').val()}&number=20&apiKey=${apiKey}`)
-      let items = await data.json();
+    async function getFood() {
+      const response = await fetch(
+        `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${
+          $('.search-bar').val()
+        }&number=20&apiKey=${apiKey}`
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const items = await response.json(); // the JSON body content.
+      console.log(items);
       removeLoading();
       foodID(items);
-      
     }
 
     function foodID(items) {
