@@ -1,7 +1,2 @@
-**/.history
-preview.js
-.vscode/
-.DS_Store
-
-
-node_modules
+config.js
+env/
